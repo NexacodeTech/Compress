@@ -31,17 +31,17 @@ class CompressPDF implements ICompress
             '-dQUIET',
             '-dBATCH',
             '-dSAFER',
-            '-dEmbedAllFonts=true', // Garantindo que todas as fontes sejam incorporadas
-            '-dSubsetFonts=true', // Subconjunto de fontes para reduzir o tamanho do arquivo
-            '-dDetectDuplicateImages=true', // Detectar e remover imagens duplicadas
+            '-dEmbedAllFonts=true',
+            '-dSubsetFonts=true',
+            '-dDetectDuplicateImages=true',
             '-dDownsampleColorImages=true',
             '-dColorImageResolution=' . $this->getImageDPI($this->quality), // Reduzindo a resolução das imagens coloridas para 72 DPI
             '-dDownsampleGrayImages=true',
             '-dGrayImageResolution=' . $this->getImageDPI($this->quality), // Reduzindo a resolução das imagens em escala de cinza para 72 DPI
             '-dDownsampleMonoImages=true',
-            '-dMonoImageResolution=300', // Mantendo a resolução das imagens monocromáticas em 300 DPI
+            '-dMonoImageResolution=300',
             '-dOptimize=true',
-            '-dCompressionQuality=80', // Ajustando a qualidade de compressão para 80
+            '-dCompressionQuality=80',
             '-sOutputFile=' . $this->outputName,
             $this->file
         ]);
