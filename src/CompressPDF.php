@@ -69,9 +69,10 @@ class CompressPDF implements ICompress
 
     public function getOutput()
     {
+        $this->run();
+        //ToDo: Implementar o metodo que obtem o STREAM em vez de salvar o arquivo.
         return match ($this->output) {
-            OutputTypeEnum::STREAM => $this->run(),
-            OutputTypeEnum::FILE => $this->outputName
+            OutputTypeEnum::STREAM, OutputTypeEnum::FILE => $this->outputName,
         };
     }
 
@@ -82,7 +83,7 @@ class CompressPDF implements ICompress
             QualityEnum::MEDIUM => '/ebook',
             QualityEnum::HIGH => '/printer',
             QualityEnum::VERY_HIGH => '/prepress',
-            QualityEnum::MAXIMUM => '/default'
+            QualityEnum::MAXIMUM => '/prepress'
         };
     }
 
