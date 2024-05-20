@@ -19,5 +19,10 @@
     "ext-imagick": "*",
     "ext-gd": "*",
     "symfony/process": "^7.0"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "bash ./scripts/install_ghostscript.sh"
+    ]
   }
 }
