@@ -3,6 +3,7 @@
 namespace NexacodeTech\Compress;
 
 use NexacodeTech\Compress\Enums\OutputTypeEnum;
+use NexacodeTech\Compress\Enums\QualityEnum;
 use NexacodeTech\Compress\Interfaces\ICompress;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -16,6 +17,7 @@ class CompressPDF implements ICompress
      * @var mixed|string
      */
     private mixed $outputName;
+    private int $quality;
 
     private function run(): string
     {
@@ -28,6 +30,27 @@ class CompressPDF implements ICompress
             '-dNOPAUSE',
             '-dQUIET',
             '-dBATCH',
+            '-dSAFER',
+            '-dEncodeColorImages=false',
+            '-dEncodeGrayImages=false',
+            '-dAutoFilterColorImages=false',
+            '-dColorImageFilter=/FlateEncode',
+            '-dAutoFilterGrayImages=false',
+            '-dGrayImageFilter=/FlateEncode',
+            '-dDownsampleColorImages=true',
+            '-dDownsampleGrayImages=true',
+            '-dDownsampleMonoImages=true',
+            '-dColorImageResolution=300',
+            '-dGrayImageResolution=300',
+            '-dMonoImageResolution=600',
+            '-dColorImageDownsampleThreshold=1.0',
+            '-dGrayImageDownsampleThreshold=1.0',
+            '-dMonoImageDownsampleThreshold=1.0',
+            '-dColorImageDownsampleType=/Bicubic',
+            '-dGrayImageDownsampleType=/Bicubic',
+            '-dMonoImageDownsampleType=/Bicubic',
+            '-dOptimize=true',
+            '-dCompressionQuality=' . $this->quality,
             '-sOutputFile=' . $this->outputName,
             $this->file
         ]);
@@ -41,11 +64,12 @@ class CompressPDF implements ICompress
         return $process->getOutput();
     }
 
-    public function compress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '')
+    public function compress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '', $quality = QualityEnum::MEDIUM)
     {
         $this->file = $file;
         $this->output = $output;
         $this->outputName = $outputName;
+        $this->quality = $quality->value;
 
         return $this->getOutput();
     }

@@ -3,9 +3,11 @@
 namespace NexacodeTech\Compress\Interfaces;
 
 use NexacodeTech\Compress\Enums\OutputTypeEnum;
+use NexacodeTech\Compress\Enums\QualityEnum;
 
 interface ICompress
 {
-    public function compress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '');
-    public function decompress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '');
+    public function compress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '', $quality = QualityEnum::MEDIUM);
+
+    public function decompress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '', $quality = QualityEnum::MEDIUM);
 }
