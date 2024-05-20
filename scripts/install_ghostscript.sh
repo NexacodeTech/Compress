@@ -39,3 +39,26 @@ else
     echo "Não foi possível determinar o sistema operacional. Não é possível instalar o Ghostscript automaticamente."
     exit 1
 fi
+
+
+# Verifica se o Ghostscript está instalado
+if ! command -v gs &> /dev/null; then
+    # Instalação do Ghostscript
+    echo "Instalando Ghostscript..."
+    # Comandos de instalação do Ghostscript, dependendo do sistema operacional
+    # Por exemplo, no Ubuntu:
+    sudo apt-get update
+    sudo apt-get install ghostscript -y
+    # Ou em sistemas baseados em Red Hat:
+    # sudo yum install ghostscript -y
+
+    # Verifica se a instalação foi bem-sucedida
+    if ! command -v gs &> /dev/null; then
+        echo "Falha ao instalar o Ghostscript. Verifique se o Ghostscript pode ser instalado manualmente em seu sistema."
+        exit 1
+    else
+        echo "Ghostscript instalado com sucesso!"
+    fi
+else
+    echo "Ghostscript já está instalado."
+fi
