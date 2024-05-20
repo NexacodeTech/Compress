@@ -17,7 +17,7 @@ class CompressPDF implements ICompress
      * @var mixed|string
      */
     private mixed $outputName;
-    private int $quality;
+    private QualityEnum $quality;
 
     private function run(): string
     {
@@ -26,34 +26,26 @@ class CompressPDF implements ICompress
             'gs',
             '-sDEVICE=pdfwrite',
             '-dCompatibilityLevel=1.4',
-            '-dPDFSETTINGS=/screen',
+            '-dPDFSETTINGS=' . $this->getPDFSettings($this->quality),
             '-dNOPAUSE',
             '-dQUIET',
             '-dBATCH',
             '-dSAFER',
-            '-dEncodeColorImages=false',
-            '-dEncodeGrayImages=false',
-            '-dAutoFilterColorImages=false',
-            '-dColorImageFilter=/FlateEncode',
-            '-dAutoFilterGrayImages=false',
-            '-dGrayImageFilter=/FlateEncode',
+            '-dEmbedAllFonts=true', // Garantindo que todas as fontes sejam incorporadas
+            '-dSubsetFonts=true', // Subconjunto de fontes para reduzir o tamanho do arquivo
+            '-dDetectDuplicateImages=true', // Detectar e remover imagens duplicadas
             '-dDownsampleColorImages=true',
+            '-dColorImageResolution=' . $this->getImageDPI($this->quality), // Reduzindo a resolução das imagens coloridas para 72 DPI
             '-dDownsampleGrayImages=true',
+            '-dGrayImageResolution=' . $this->getImageDPI($this->quality), // Reduzindo a resolução das imagens em escala de cinza para 72 DPI
             '-dDownsampleMonoImages=true',
-            '-dColorImageResolution=300',
-            '-dGrayImageResolution=300',
-            '-dMonoImageResolution=600',
-            '-dColorImageDownsampleThreshold=1.0',
-            '-dGrayImageDownsampleThreshold=1.0',
-            '-dMonoImageDownsampleThreshold=1.0',
-            '-dColorImageDownsampleType=/Bicubic',
-            '-dGrayImageDownsampleType=/Bicubic',
-            '-dMonoImageDownsampleType=/Bicubic',
+            '-dMonoImageResolution=300', // Mantendo a resolução das imagens monocromáticas em 300 DPI
             '-dOptimize=true',
-            '-dCompressionQuality=' . $this->quality,
+            '-dCompressionQuality=80', // Ajustando a qualidade de compressão para 80
             '-sOutputFile=' . $this->outputName,
             $this->file
         ]);
+
 
         $process->run();
 
@@ -69,7 +61,7 @@ class CompressPDF implements ICompress
         $this->file = $file;
         $this->output = $output;
         $this->outputName = $outputName;
-        $this->quality = $quality->value;
+        $this->quality = $quality;
 
         return $this->getOutput();
     }
@@ -84,6 +76,28 @@ class CompressPDF implements ICompress
         return match ($this->output) {
             OutputTypeEnum::STREAM => $this->run(),
             OutputTypeEnum::FILE => $this->outputName
+        };
+    }
+
+    private function getPDFSettings(QualityEnum $quality): string
+    {
+        return match ($quality) {
+            QualityEnum::LOW => '/screen',
+            QualityEnum::MEDIUM => '/ebook',
+            QualityEnum::HIGH => '/printer',
+            QualityEnum::VERY_HIGH => '/prepress',
+            QualityEnum::MAXIMUM => '/default'
+        };
+    }
+
+    private function getImageDPI(QualityEnum $quality): string
+    {
+        return (string)match ($quality) {
+            QualityEnum::LOW => 72,
+            QualityEnum::MEDIUM => 150,
+            QualityEnum::HIGH => 300,
+            QualityEnum::VERY_HIGH => 600,
+            QualityEnum::MAXIMUM => 1200
         };
     }
 }

@@ -6,5 +6,5 @@ use NexacodeTech\Compress\Enums\OutputTypeEnum;
 use NexacodeTech\Compress\Enums\QualityEnum;
 
 $compress = Compress::make(CompressTypeEnum::PDF);
-$compress->setQuality(QualityEnum::HIGH);
+$compress->setQuality(QualityEnum::LOW);
 $compress->compress('files/100mb.pdf', OutputTypeEnum::STREAM, 'files/100mb_compressed.pdf');

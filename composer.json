@@ -1,6 +1,6 @@
 {
   "name": "nexacodetech/compress",
-  "description": "Compactador de arquivos PDF e Imagem para Laravel",
+  "description": "Compactador de arquivos PDF e Imagem, compatível também com Laravel.",
   "type": "library",
   "license": "MIT",
   "authors": [
