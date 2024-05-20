@@ -7,14 +7,18 @@ use NexacodeTech\Compress\Enums\QualityEnum;
 
 class CompressImage implements Interfaces\ICompress
 {
-
     public function compress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '', $quality = QualityEnum::MEDIUM)
     {
-        return 'b';
+        // TODO: Implement compress() method.
     }
 
-    public function decompress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '')
+    public function run(): string
     {
-        // TODO: Implement decompress() method.
+        // TODO: Implement run() method.
+    }
+
+    public function getOutput()
+    {
+        // TODO: Implement getOutput() method.
     }
 }

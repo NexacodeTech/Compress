@@ -19,7 +19,7 @@ class CompressPDF implements ICompress
     private mixed $outputName;
     private QualityEnum $quality;
 
-    private function run(): string
+    public function run(): string
     {
 
         $process = new Process([
@@ -66,12 +66,8 @@ class CompressPDF implements ICompress
         return $this->getOutput();
     }
 
-    public function decompress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '')
-    {
 
-    }
-
-    private function getOutput()
+    public function getOutput()
     {
         return match ($this->output) {
             OutputTypeEnum::STREAM => $this->run(),
