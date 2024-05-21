@@ -72,7 +72,8 @@ class CompressPDF implements ICompress
         $this->run();
         //ToDo: Implementar o metodo que obtem o STREAM em vez de salvar o arquivo.
         return match ($this->output) {
-            OutputTypeEnum::STREAM, OutputTypeEnum::FILE => $this->outputName,
+            OutputTypeEnum::STREAM => file_get_contents($this->outputName),
+            OutputTypeEnum::FILE => $this->outputName,
         };
     }
 

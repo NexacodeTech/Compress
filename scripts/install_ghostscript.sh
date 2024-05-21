@@ -27,19 +27,10 @@ elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
         echo "Não foi possível determinar o método de instalação adequado para o Ghostscript neste sistema."
         exit 1
     fi
-elif [[ "$(uname -s)" == "Windows_NT" ]]; then
-    # Windows usando Chocolatey
-    if ! command_exists choco; then
-        echo "Chocolatey não está instalado. Instalando..."
-        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-    fi
-    echo "Instalando Ghostscript via Chocolatey..."
-    choco install ghostscript -y
 else
     echo "Não foi possível determinar o sistema operacional. Não é possível instalar o Ghostscript automaticamente."
     exit 1
 fi
-
 
 # Verifica se o Ghostscript está instalado
 if ! command -v gs &> /dev/null; then
