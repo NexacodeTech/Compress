@@ -12,4 +12,6 @@ interface ICompress
     public function run(): string;
 
     public function getOutput();
+
+    public function isValid($filePath): bool;
 }

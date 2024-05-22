@@ -2,6 +2,7 @@
 
 namespace NexacodeTech\Compress;
 
+use Exception;
 use NexacodeTech\Compress\Enums\OutputTypeEnum;
 use NexacodeTech\Compress\Enums\QualityEnum;
 use NexacodeTech\Compress\Interfaces\ICompress;
@@ -56,8 +57,14 @@ class CompressPDF implements ICompress
         return $process->getOutput();
     }
 
+    /**
+     * @throws Exception
+     */
     public function compress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '', $quality = QualityEnum::MEDIUM)
     {
+        if (!$this->isValid($file)) {
+            throw new Exception('Invalid PDF file');
+        }
         $this->file = $file;
         $this->output = $output;
         $this->outputName = $outputName;
@@ -97,5 +104,16 @@ class CompressPDF implements ICompress
             QualityEnum::VERY_HIGH => 600,
             QualityEnum::MAXIMUM => 1200
         };
+    }
+
+    public function isValid($filePath): bool
+    {
+        if (!file_exists($filePath) || !is_readable($filePath)) {
+            return false;
+        }
+
+        $mimeType = mime_content_type($filePath);
+
+        return $mimeType === 'application/pdf';
     }
 }

@@ -1,5 +1,5 @@
 {
     "require": {
-        "nexacodetech/compress": "^0.1.0"
+        "nexacodetech/compress": "^0.2.0"
     }
 }

@@ -2,6 +2,7 @@
 
 namespace NexacodeTech\Compress;
 
+use Exception;
 use NexacodeTech\Compress\Enums\OutputTypeEnum;
 use NexacodeTech\Compress\Enums\QualityEnum;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -18,8 +19,15 @@ class CompressImage implements Interfaces\ICompress
     private QualityEnum $quality;
 
 
+    /**
+     * @throws Exception
+     */
     public function compress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '', $quality = QualityEnum::MEDIUM)
     {
+        if(!$this->isValid($file)){
+            throw new Exception('Invalid image file');
+        }
+
         $this->file = $file;
         $this->output = $output;
         $this->outputName = $outputName;
@@ -65,5 +73,15 @@ class CompressImage implements Interfaces\ICompress
             QualityEnum::MAXIMUM => 100,
             default => 50,
         };
+    }
+
+    function isValid($filePath): bool
+    {
+        if (!file_exists($filePath) || !is_readable($filePath)) {
+            return false;
+        }
+        $mimeType = mime_content_type($filePath);
+        $validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp'];
+        return in_array($mimeType, $validImageTypes);
     }
 }

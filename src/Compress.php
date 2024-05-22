@@ -20,6 +20,9 @@ class Compress
         $this->image = new CompressImage();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function compress(string $file, OutputTypeEnum $outputType, $output = ''): string
     {
         return match ($this->fileType) {
