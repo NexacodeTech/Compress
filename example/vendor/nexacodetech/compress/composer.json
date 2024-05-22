@@ -1,0 +1,28 @@
+{
+  "name": "nexacodetech/compress",
+  "description": "Compactador de arquivos PDF e Imagem, compatível também com Laravel.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gerson Alves",
+      "email": "gersonalvesdev@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "NexacodeTech\\Compress\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.1",
+    "ext-imagick": "*",
+    "ext-gd": "*",
+    "symfony/process": "^7.0"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "bash ./scripts/install_ghostscript.sh"
+    ]
+  }
+}

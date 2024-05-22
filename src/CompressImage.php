@@ -24,7 +24,7 @@ class CompressImage implements Interfaces\ICompress
      */
     public function compress($file, OutputTypeEnum $output = OutputTypeEnum::STREAM, $outputName = '', $quality = QualityEnum::MEDIUM)
     {
-        if(!$this->isValid($file)){
+        if (!$this->isValid($file)) {
             throw new Exception('Invalid image file');
         }
 
@@ -41,7 +41,8 @@ class CompressImage implements Interfaces\ICompress
         $proccess = new Process([
             'convert',
             $this->file,
-            '-quality=' . $this->getQuality($this->quality),
+            '-quality',
+            $this->getQuality($this->quality) . "%",
             $this->outputName
         ]);
 

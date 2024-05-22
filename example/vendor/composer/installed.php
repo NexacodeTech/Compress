@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '3687b6f263373476ccd6d346e6d2600c44e3cbee',
+        'name' => '__root__',
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '3687b6f263373476ccd6d346e6d2600c44e3cbee',
+            'dev_requirement' => false,
+        ),
+        'nexacodetech/compress' => array(
+            'pretty_version' => '0.2.0',
+            'version' => '0.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nexacodetech/compress',
+            'aliases' => array(),
+            'reference' => '3687b6f263373476ccd6d346e6d2600c44e3cbee',
+            'dev_requirement' => false,
+        ),
+        'symfony/process' => array(
+            'pretty_version' => 'v7.0.7',
+            'version' => '7.0.7.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/process',
+            'aliases' => array(),
+            'reference' => '3839e56b94dd1dbd13235d27504e66baf23faba0',
+            'dev_requirement' => false,
+        ),
+    ),
+);

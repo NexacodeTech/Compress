@@ -1,0 +1,1 @@
+{"version":1,"defects":{"compressImageTest::testImageCompression":7,"compressPDFTest::testPDFCompression":8},"times":{"compressImageTest::testImageCompression":0.214,"compressPDFTest::testPDFCompression":3.491}}
