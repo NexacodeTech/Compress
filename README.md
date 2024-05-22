@@ -9,6 +9,14 @@ Para instalar a biblioteca, utilize o Composer para adicionar o pacote `nexacode
 ```bash
 composer require nexacodetech/compress
 ```
+Além disso, é necessário instalar o Ghostscript e o ImageMagick. Siga as instruções abaixo para o seu sistema operacional:
+
+#### Ubuntu
+```bash
+sudo apt-get update
+sudo apt-get install -y ghostscript
+sudo apt-get install -y imagemagick
+```
 
 ## Uso
 
