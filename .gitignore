@@ -5,3 +5,5 @@
 composer.lock
 /test/files
 /test/vendor
+/example/vendor
+/example/files
