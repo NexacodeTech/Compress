@@ -1,7 +1,7 @@
 # Compress Library
 
 A biblioteca `Compress` permite a compressão de imagens e PDFs com facilidade. Suporta diferentes níveis de qualidade e modos de saída.
-
+Em alguns testes, conseguimos reduzir um PDF em até 98% do seu tamanho e imagem em até 75%. 
 ## Instalação
 
 Para instalar a biblioteca, utilize o Composer para adicionar o pacote `nexacodetech/compress` ao seu projeto:
