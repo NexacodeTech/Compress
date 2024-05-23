@@ -7,13 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@v2
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: imagick, gd
-      - name: Install dependencies
+      - name: Install PHP extensions
         run: |
           sudo apt-get update
           sudo apt-get install -y ghostscript
+          sudo apt-get install -y libmagickwand-dev
+          pecl install imagick
+          echo "extension=imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+          sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
+          docker-php-ext-configure gd --with-freetype --with-jpeg
+          docker-php-ext-install gd
       - uses: php-actions/composer@v6
       - uses: php-actions/phpunit@v3
