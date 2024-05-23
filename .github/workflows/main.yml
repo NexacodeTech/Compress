@@ -7,10 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: imagick, gd
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libmagickwand-dev ghostscript
-          sudo apt-get install -y php-gd php-imagick
+          sudo apt-get install -y ghostscript
       - uses: php-actions/composer@v6
       - uses: php-actions/phpunit@v3
