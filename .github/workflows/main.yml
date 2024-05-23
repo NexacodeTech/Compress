@@ -11,15 +11,16 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-      - name: Install PHP extensions
+      - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ghostscript
-          sudo apt-get install -y libmagickwand-dev
-          pecl install imagick
-          echo "extension=imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-          sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
-          docker-php-ext-configure gd --with-freetype --with-jpeg
-          docker-php-ext-install gd
+          sudo apt-get install -y ghostscript libmagickwand-dev libpng-dev libjpeg-dev libfreetype6-dev
+      - name: Install and enable PHP extensions
+        run: |
+          sudo pecl install imagick
+          echo "extension=imagick.so" | sudo tee -a /etc/php/8.3/cli/php.ini
+          sudo docker-php-ext-configure gd --with-freetype --with-jpeg
+          sudo docker-php-ext-install gd
+          echo "extension=gd.so" | sudo tee -a /etc/php/8.3/cli/php.ini
       - uses: php-actions/composer@v6
       - uses: php-actions/phpunit@v3
