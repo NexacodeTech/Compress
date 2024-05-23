@@ -6,7 +6,13 @@ use NexacodeTech\Compress\Enums\CompressTypeEnum;
 use NexacodeTech\Compress\Enums\OutputTypeEnum;
 use NexacodeTech\Compress\Enums\QualityEnum;
 
-$compress = Compress::make(CompressTypeEnum::IMAGE);
+$compressImage = Compress::make(CompressTypeEnum::IMAGE);
 
-$compress->setQuality(QualityEnum::LOW);
-$content = $compress->compress('files/panorama.jpg', OutputTypeEnum::FILE, 'files/compressed.jpg');
+$compressImage->setQuality(QualityEnum::LOW);
+$content = $compressImage->compress('files/panorama.jpg', OutputTypeEnum::FILE, 'files/compressed.jpg');
+
+
+$compressPdf = Compress::make(CompressTypeEnum::PDF);
+
+$compressPdf->setQuality(QualityEnum::LOW);
+$content = $compressPdf->compress('files/100mb.pdf', OutputTypeEnum::FILE, 'files/compressed.pdf');
